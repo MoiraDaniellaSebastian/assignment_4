@@ -1,0 +1,19 @@
+﻿@model IEnumerable<assignment_4.Models.BlogPost>
+
+<h1>My Blog</h1>
+
+@if (User.Identity.IsAuthenticated)  // Only show Add Post button for logged-in users
+{
+    <a class="btn btn-primary mb-3" asp-action="Add">Add New Post</a>
+}
+
+<div class="row">
+    @if (Model.Any())  // Display blog posts for everyone
+    {
+        @await Html.PartialAsync("_PostPartial", Model)  // Use partial view to display posts
+    }
+    else
+    {
+        <p>No blog posts available.</p>
+    }
+</div>

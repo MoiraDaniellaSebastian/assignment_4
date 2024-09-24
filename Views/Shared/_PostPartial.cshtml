@@ -1,0 +1,31 @@
+﻿@model IEnumerable<assignment_4.Models.BlogPost>
+
+@foreach (var post in Model)
+{
+    <div class="card col-md-4 mb-4">
+        <div class="card-body">
+            <h5 class="card-title Title">@post.Title</h5>
+
+            <h6 class="card-subtitle mb-2 Nickname">
+                <strong>Nickname:</strong> @post.User?.Nickname ?? "Unknown"
+            </h6>
+
+            <p class="card-text Summary">
+                <strong>Summary:</strong> @post.Summary
+            </p>
+
+            <p class="card-text Content">
+                <strong>Content:</strong> @post.Content
+            </p>
+
+            <p class="card-text Time">
+                <strong>Timestamp:</strong> @post.TimeStamp.ToString("dd.MM.yyyy")
+            </p>
+
+            @if (User.Identity.IsAuthenticated && User.Identity.Name == post.User?.UserName)  // Only show if logged in and owner
+            {
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@post.Id">Edit Post</a>
+            }
+        </div>
+    </div>
+}
